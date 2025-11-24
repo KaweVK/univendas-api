@@ -6,8 +6,6 @@ import com.uni.vendas.item.mapper.ItemMapper;
 import com.uni.vendas.item.model.Item;
 import com.uni.vendas.item.repository.ItemRepository;
 import com.uni.vendas.item.validator.ItemValidator;
-import com.uni.vendas.user.models.User;
-import com.uni.vendas.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import static com.uni.vendas.item.repository.specs.ItemSpecs.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,7 +25,6 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final ItemValidator itemValidator;
     private final ItemMapper itemMapper;
-    private final UserRepository userRepository;
 
     public Optional<RegisterItemDTO> findById(String id) {
         UUID idItem = UUID.fromString(id);
@@ -70,6 +66,7 @@ public class ItemService {
         item.setDescription(registerItemDTO.description());
         item.setAmount(registerItemDTO.amount());
         item.setPrice(registerItemDTO.price());
+        item.setCategory(registerItemDTO.category());
 
         itemValidator.validate(item);
         Item updated = itemRepository.save(item);

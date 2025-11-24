@@ -73,6 +73,7 @@ public class UserService {
         user.setPhoneNumber(userDTO.phoneNumber());
         user.setCity(userDTO.city());
         user.setPassword(passwordEncoder.encode(userDTO.password()));
+        user.setImageUrl(userDTO.imageUrl());
         userValidator.validate(user);
 
         var updatedUser = userRepository.save(user);
