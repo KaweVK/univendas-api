@@ -18,6 +18,7 @@ public abstract class ItemMapper {
     @Mapping(target = "soldBy", expression = "java( userRepository.findById(registerItemDTO.soldById()).orElse(null) )")
     public abstract Item toEntity(RegisterItemDTO registerItemDTO);
 
+    @Mapping(source = "soldBy.id", target = "soldById")
     public abstract RegisterItemDTO toRegisterDTO(Item item);
 
     public abstract DefaultItemDTO toDefaultDTO(Item item);
