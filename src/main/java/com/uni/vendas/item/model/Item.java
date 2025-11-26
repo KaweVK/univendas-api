@@ -40,7 +40,7 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemCategory category;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_salesman")
+    @JoinColumn(name = "id_user")
     private User soldBy;
     @CreatedDate
     @Column(name = "register_date")
