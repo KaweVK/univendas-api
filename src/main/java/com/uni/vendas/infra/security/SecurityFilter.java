@@ -42,11 +42,11 @@ public class SecurityFilter extends OncePerRequestFilter {
                 }
             }
 
-            filterChain.doFilter(request, response);
-
         } catch (Exception e) {
             handlerExceptionResolver.resolveException(request, response, null, e);
         }
+        filterChain.doFilter(request, response);
+
     }
 
     private String recuperarToken(HttpServletRequest request) {
