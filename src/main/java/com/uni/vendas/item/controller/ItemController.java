@@ -53,9 +53,9 @@ public class ItemController {
 
     @PostMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}
     )
-    public ResponseEntity<Object> createItem(@RequestBody @Valid RegisterItemDTO registerItemDTO) {
+    public ResponseEntity<Object> createItem(@Valid @ModelAttribute RegisterItemDTO registerItemDTO) {
         Item item = itemService.createItem(registerItemDTO);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
