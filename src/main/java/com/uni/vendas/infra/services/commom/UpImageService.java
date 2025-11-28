@@ -1,4 +1,4 @@
-package com.uni.vendas.item.service;
+package com.uni.vendas.infra.services.commom;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Value;

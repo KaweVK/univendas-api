@@ -1,5 +1,6 @@
 package com.uni.vendas.item.service;
 
+import com.uni.vendas.infra.services.commom.UpImageService;
 import com.uni.vendas.item.dto.DefaultItemDTO;
 import com.uni.vendas.item.dto.RegisterItemDTO;
 import com.uni.vendas.item.mapper.ItemMapper;
