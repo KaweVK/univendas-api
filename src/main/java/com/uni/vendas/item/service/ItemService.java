@@ -25,6 +25,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final ItemValidator itemValidator;
     private final ItemMapper itemMapper;
+    private final UpImageService upImageService;
 
     public Optional<RegisterItemDTO> findById(String id) {
         UUID idItem = UUID.fromString(id);
@@ -45,6 +46,11 @@ public class ItemService {
 
     public Item createItem(RegisterItemDTO registerItemDTO) {
         var item = itemMapper.toEntity(registerItemDTO);
+        if (registerItemDTO.image() != null && !registerItemDTO.image().isEmpty()) {
+            String urlDaImagem = upImageService.fazerUpload(registerItemDTO.image());
+
+            item.setImage(urlDaImagem);
+        }
         itemValidator.validate(item);
         return itemRepository.save(item);
     }

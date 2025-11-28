@@ -27,7 +27,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name = "image_url")
-    private String imageUrl;
+    private String image;
     @Column(name = "name", nullable = false, length = 80)
     private String name;
     @Column(name = "description", nullable = false)
