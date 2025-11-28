@@ -3,6 +3,7 @@ package com.uni.vendas.user.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -24,6 +25,5 @@ public record RegisterUserDTO(
         @NotBlank(message = "City cannot be blank")
         @Size(min = 3, max = 50, message = "Cidade deve ter entre 3 e 50 caracteres")
         String city,
-        @Size(max = 255, message = "URL da imagem muito longa")
-        String imageUrl
+        MultipartFile image
 ){}

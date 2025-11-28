@@ -1,5 +1,6 @@
 package com.uni.vendas.user.services;
 
+import com.uni.vendas.infra.services.commom.UpImageService;
 import com.uni.vendas.user.dto.DefaultUserDTO;
 import com.uni.vendas.user.dto.RegisterUserDTO;
 import com.uni.vendas.user.mapper.UserMapper;
@@ -27,6 +28,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserValidator userValidator;
     private final PasswordEncoder passwordEncoder;
+    private final UpImageService upImageService;
 
     public Optional<DefaultUserDTO> findById(String id) {
         UUID uuid = UUID.fromString(id);
@@ -47,6 +49,12 @@ public class UserService {
 
     public User createUser(RegisterUserDTO userDTO) {
         var user = userMapper.toEntity(userDTO);
+
+        if (userDTO.image() != null && !userDTO.image().isEmpty()) {
+            String url = upImageService.fazerUpload(userDTO.image());
+
+            user.setImage(url);
+        }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -73,7 +81,6 @@ public class UserService {
         user.setPhoneNumber(userDTO.phoneNumber());
         user.setCity(userDTO.city());
         user.setPassword(passwordEncoder.encode(userDTO.password()));
-        user.setImageUrl(userDTO.imageUrl());
         userValidator.validate(user);
 
         var updatedUser = userRepository.save(user);

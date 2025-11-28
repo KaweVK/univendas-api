@@ -36,9 +36,9 @@ public class UserController {
 
     @PostMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}
     )
-    public ResponseEntity<Object> createUser(@RequestBody @Valid RegisterUserDTO userDTO) {
+    public ResponseEntity<Object> createUser(@ModelAttribute @Valid RegisterUserDTO userDTO) {
         User user = userService.createUser(userDTO);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
