@@ -81,6 +81,11 @@ public class UserService {
         user.setPhoneNumber(userDTO.phoneNumber());
         user.setCity(userDTO.city());
         user.setPassword(passwordEncoder.encode(userDTO.password()));
+        if (userDTO.image() != null && !userDTO.image().isEmpty()) {
+            String url = upImageService.fazerUpload(userDTO.image());
+
+            user.setImage(url);
+        }
         userValidator.validate(user);
 
         var updatedUser = userRepository.save(user);

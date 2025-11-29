@@ -50,9 +50,9 @@ public class UserController {
     @PutMapping(
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}
     )
-    public ResponseEntity<Object> updateUser(@PathVariable("id") String id, @RequestBody @Valid RegisterUserDTO userDTO) {
+    public ResponseEntity<Object> updateUser(@PathVariable("id") String id, @ModelAttribute @Valid RegisterUserDTO userDTO) {
         Optional<DefaultUserDTO> userOptional = userService.updateUser(id, userDTO);
         if (userOptional.isPresent()) {
             return ResponseEntity.noContent().build();
