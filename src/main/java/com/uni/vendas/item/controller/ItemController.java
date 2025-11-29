@@ -81,7 +81,7 @@ public class ItemController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteItem(@PathVariable("id") String id) {
-        Optional<RegisterItemDTO> authorOptional = itemService.findById(id);
+        Optional<DefaultItemDTO> authorOptional = itemService.findById(id);
         if (authorOptional.isPresent()) {
             itemService.deleteItem(id);
             return ResponseEntity.ok("Item deleted successfully.");

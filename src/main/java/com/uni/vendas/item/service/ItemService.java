@@ -28,13 +28,13 @@ public class ItemService {
     private final ItemMapper itemMapper;
     private final UpImageService upImageService;
 
-    public Optional<RegisterItemDTO> findById(String id) {
+    public Optional<DefaultItemDTO> findById(String id) {
         UUID idItem = UUID.fromString(id);
         var itemOptional = itemRepository.findById(idItem);
         if (itemOptional.isEmpty()) {
             throw new IllegalArgumentException("Item with ID " + id + " does not exist");
         }
-        return itemOptional.map(itemMapper::toRegisterDTO);
+        return itemOptional.map(itemMapper::toDefaultDTO);
     }
 
     protected Optional<Item> findByIdInternal(String id) {
