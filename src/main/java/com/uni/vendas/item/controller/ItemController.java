@@ -53,9 +53,9 @@ public class ItemController {
 
     @PostMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}
     )
-    public ResponseEntity<Object> createItem(@RequestBody @Valid RegisterItemDTO registerItemDTO) {
+    public ResponseEntity<Object> createItem(@Valid @ModelAttribute RegisterItemDTO registerItemDTO) {
         Item item = itemService.createItem(registerItemDTO);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -69,9 +69,9 @@ public class ItemController {
     @PutMapping(
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}
     )
-    public ResponseEntity<Object> updateItem(@PathVariable("id") String id, @RequestBody @Valid RegisterItemDTO registerItemDTO) {
+    public ResponseEntity<Object> updateItem(@PathVariable("id") String id, @ModelAttribute @Valid RegisterItemDTO registerItemDTO) {
         Optional<RegisterItemDTO> itemOptional = itemService.updateItem(id, registerItemDTO);;
         if (itemOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -81,7 +81,7 @@ public class ItemController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteItem(@PathVariable("id") String id) {
-        Optional<RegisterItemDTO> authorOptional = itemService.findById(id);
+        Optional<DefaultItemDTO> authorOptional = itemService.findById(id);
         if (authorOptional.isPresent()) {
             itemService.deleteItem(id);
             return ResponseEntity.ok("Item deleted successfully.");

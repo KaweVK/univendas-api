@@ -25,6 +25,6 @@ public record DefaultItemDTO(
         DefaultUserDTO soldBy,
         @NotNull(message = "Category is required")
         ItemCategory category,
-        String imageUrl
+        String image
 ) {
 }

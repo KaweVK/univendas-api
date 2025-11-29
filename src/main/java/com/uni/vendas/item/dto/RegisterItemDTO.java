@@ -5,6 +5,7 @@ import com.uni.vendas.item.model.enums.ItemCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -26,8 +27,7 @@ public record RegisterItemDTO(
         UUID soldById,
         @NotNull(message = "Category is required")
         ItemCategory category,
-        @Size(max = 255, message = "URL da imagem muito longa")
-        String imageUrl
+        MultipartFile image
 
 ) {
 }

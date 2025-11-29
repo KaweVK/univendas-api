@@ -30,7 +30,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name = "image_url", length = 255)
-    private String imageUrl;
+    private String image;
     @Column(name = "name", nullable = false, length = 100)
     private String name;
     @Email(regexp = "^[a-zA-Z0-9._%+-]+@dcx.ufpb.br$", message = "Invalid email format. You need to have a dcx email")

@@ -1,5 +1,6 @@
 package com.uni.vendas.item.service;
 
+import com.uni.vendas.infra.services.commom.UpImageService;
 import com.uni.vendas.item.dto.DefaultItemDTO;
 import com.uni.vendas.item.dto.RegisterItemDTO;
 import com.uni.vendas.item.mapper.ItemMapper;
@@ -25,14 +26,15 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final ItemValidator itemValidator;
     private final ItemMapper itemMapper;
+    private final UpImageService upImageService;
 
-    public Optional<RegisterItemDTO> findById(String id) {
+    public Optional<DefaultItemDTO> findById(String id) {
         UUID idItem = UUID.fromString(id);
         var itemOptional = itemRepository.findById(idItem);
         if (itemOptional.isEmpty()) {
             throw new IllegalArgumentException("Item with ID " + id + " does not exist");
         }
-        return itemOptional.map(itemMapper::toRegisterDTO);
+        return itemOptional.map(itemMapper::toDefaultDTO);
     }
 
     protected Optional<Item> findByIdInternal(String id) {
@@ -45,6 +47,11 @@ public class ItemService {
 
     public Item createItem(RegisterItemDTO registerItemDTO) {
         var item = itemMapper.toEntity(registerItemDTO);
+        if (registerItemDTO.image() != null && !registerItemDTO.image().isEmpty()) {
+            String urlDaImagem = upImageService.fazerUpload(registerItemDTO.image());
+
+            item.setImage(urlDaImagem);
+        }
         itemValidator.validate(item);
         return itemRepository.save(item);
     }
@@ -67,6 +74,11 @@ public class ItemService {
         item.setAmount(registerItemDTO.amount());
         item.setPrice(registerItemDTO.price());
         item.setCategory(registerItemDTO.category());
+        if (registerItemDTO.image() != null && !registerItemDTO.image().isEmpty()) {
+            String url = upImageService.fazerUpload(registerItemDTO.image());
+
+            item.setImage(url);
+        }
 
         itemValidator.validate(item);
         Item updated = itemRepository.save(item);
