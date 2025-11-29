@@ -74,6 +74,11 @@ public class ItemService {
         item.setAmount(registerItemDTO.amount());
         item.setPrice(registerItemDTO.price());
         item.setCategory(registerItemDTO.category());
+        if (registerItemDTO.image() != null && !registerItemDTO.image().isEmpty()) {
+            String url = upImageService.fazerUpload(registerItemDTO.image());
+
+            item.setImage(url);
+        }
 
         itemValidator.validate(item);
         Item updated = itemRepository.save(item);

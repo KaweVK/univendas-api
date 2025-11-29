@@ -69,9 +69,9 @@ public class ItemController {
     @PutMapping(
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}
     )
-    public ResponseEntity<Object> updateItem(@PathVariable("id") String id, @RequestBody @Valid RegisterItemDTO registerItemDTO) {
+    public ResponseEntity<Object> updateItem(@PathVariable("id") String id, @ModelAttribute @Valid RegisterItemDTO registerItemDTO) {
         Optional<RegisterItemDTO> itemOptional = itemService.updateItem(id, registerItemDTO);;
         if (itemOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
