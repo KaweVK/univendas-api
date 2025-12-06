@@ -1,0 +1,7 @@
+CREATE TABLE item_image (
+    id UUID PRIMARY KEY,
+    url VARCHAR(255) NOT NULL,
+    item_id UUID NOT NULL REFERENCES item(id) ON DELETE CASCADE
+);
+
+ALTER TABLE "item" DROP COLUMN image_url;
