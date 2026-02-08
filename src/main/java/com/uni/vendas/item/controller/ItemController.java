@@ -4,6 +4,7 @@ import com.uni.vendas.item.dto.DefaultItemDTO;
 import com.uni.vendas.item.dto.RegisterItemDTO;
 import com.uni.vendas.item.model.Item;
 import com.uni.vendas.item.service.ItemService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Optional;
 
+@SecurityRequirement(name = "bearer-key")
 @RestController
 @RequestMapping("/shop")
 @RequiredArgsConstructor

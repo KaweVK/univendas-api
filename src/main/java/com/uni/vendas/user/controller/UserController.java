@@ -4,6 +4,7 @@ import com.uni.vendas.user.dto.DefaultUserDTO;
 import com.uni.vendas.user.dto.RegisterUserDTO;
 import com.uni.vendas.user.models.User;
 import com.uni.vendas.user.services.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Optional;
 
+@SecurityRequirement(name = "bearer-key")
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
